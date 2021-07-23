@@ -247,6 +247,17 @@ class Madx:
 
     # Methods:
 
+    def fork(self) -> "Madx":
+        """
+        Forks the Madx instance.
+
+        :returns: the forked instance
+        """
+        new_client = _rpc.LibMadxClient.fork_client(self._service)
+        new_mad = type(self)(libmadx=new_client.libmadx)
+        new_mad._service = new_client
+        return new_mad
+
     def input(self, text: str) -> bool:
         """
         Run any textual MAD-X input.
